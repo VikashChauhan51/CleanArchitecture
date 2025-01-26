@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using CleanArchitecture.Application.Behaviors;
+using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,8 +14,8 @@ public static class DependencyInjection
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(assembly!);
-            //config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            //config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+            config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
         //register validators
