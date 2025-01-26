@@ -10,8 +10,4 @@
     <ProjectReference Include="..\CleanArchitecture.SharedKernel\CleanArchitecture.SharedKernel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstractions\" />
-  </ItemGroup>
-
 </Project>
