@@ -10,5 +10,5 @@ public sealed record class PaginatedResult<TEntity>
     bool HasNextPage,
     bool IsFirstPage,
     bool IsLastPage,
-    IEnumerable<TEntity> entities
+    IEnumerable<TEntity> Entities
 ) where TEntity : IEntity;

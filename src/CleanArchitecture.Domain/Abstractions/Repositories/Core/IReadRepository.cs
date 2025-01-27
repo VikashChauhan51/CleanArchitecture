@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 
 
-namespace CleanArchitecture.Domain.Abstractions.Repositories;
+namespace CleanArchitecture.Domain.Abstractions.Repositories.Core;
 public interface IReadRepository<T, in TKey> where T : IEntity where TKey : notnull
 {
     T? GetById(TKey id);

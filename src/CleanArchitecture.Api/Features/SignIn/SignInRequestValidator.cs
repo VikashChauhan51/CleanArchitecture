@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
+namespace CleanArchitecture.Api.Features.SignIn;
 
-namespace CleanArchitecture.Application.UseCases.SignIn;
-public sealed class SignInCommandValidator : AbstractValidator<SignInCommand>
+public sealed class SignInRequestValidator : AbstractValidator<SignInRequest>
 {
-    public SignInCommandValidator()
+    public SignInRequestValidator()
     {
         RuleFor(x => x.UserName)
         .NotNull()
