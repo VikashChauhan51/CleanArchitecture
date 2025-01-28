@@ -2,7 +2,6 @@
 using CleanArchitecture.Api.Middlewares;
 using CleanArchitecture.Application;
 using CleanArchitecture.Infrastructure;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Scalar.AspNetCore;
 
@@ -32,7 +31,7 @@ public static class HostBuildingExtensions
             options.DefaultApiVersion = new ApiVersion(1, 0);
             options.AssumeDefaultVersionWhenUnspecified = true;
             options.ReportApiVersions = true;
-            options.ApiVersionReader = new UrlSegmentApiVersionReader();
+            options.ApiVersionReader = new UrlSegmentApiVersionReader();            
         }).AddApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'VVV";
@@ -56,24 +55,11 @@ public static class HostBuildingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
-        if (app.Environment.IsDevelopment())
-        {
-            app.MapOpenApi();
-            app.MapScalarApiReference(options =>
-            {
-                options.WithTitle("My API");
-                options.WithTheme(ScalarTheme.Mars);
-                options.WithSidebar(true);
-                options.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
-            });
-        }
-
+        app.UseRouting();
         app.UseMiddleware<ErrorHandlerMiddleware>();
         app.UseCors();
-        app.UseRouting();
         app.MapControllers();
-        app.UseHealthChecks("/healthz");
-
+        app.MapHealthChecks("/healthz").AllowAnonymous();
         return app;
     }
 }

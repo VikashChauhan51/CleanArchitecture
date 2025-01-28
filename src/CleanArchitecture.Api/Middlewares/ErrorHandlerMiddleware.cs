@@ -1,7 +1,5 @@
-﻿using System.Net.Mime;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using FluentValidation;
+﻿using System.Text.Json.Serialization;
+
 
 namespace CleanArchitecture.Api.Middlewares;
 

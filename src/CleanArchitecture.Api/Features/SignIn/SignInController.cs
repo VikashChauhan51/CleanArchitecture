@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning;
+using CleanArchitecture.Api.Core;
 using CleanArchitecture.Application.UseCases.SignIn;
 using Mapster;
 using MediatR;
@@ -7,9 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace CleanArchitecture.Api.Features.SignIn;
 
 [ApiController]
-[Route("api/v{version:apiVersion}/")]
+[Route("api/v{version:apiVersion}/Signin")]
 [ApiVersion(1)]
-public class SignInController : ControllerBase
+public class SignInController : ApiControllerBase
 {
     private readonly ISender _sender;
     private readonly ILogger<SignInController> _logger;
@@ -19,8 +20,7 @@ public class SignInController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPost]
-    [Route("signin")]
+    [HttpPost(Name ="SignIn")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> SignIn(SignInRequest request)
     {
@@ -31,10 +31,10 @@ public class SignInController : ControllerBase
         }
         var outcome = await _sender.Send(request.Adapt<SignInCommand>());
 
-        return outcome.MapResponse
+        return outcome.Match
         (
             () => Ok(),
-            error => BadRequest(error)
+            (status, error) => MapErrors(status, error)
         );
 
     }
