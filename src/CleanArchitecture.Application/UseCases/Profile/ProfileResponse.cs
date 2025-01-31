@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CleanArchitecture.Application.UseCases.Profile;
-public class ProfileResponse
-{
-}
+﻿namespace CleanArchitecture.Application.UseCases.Profile;
+public sealed record ProfileResponse
+(
+    string FullName,
+    string UserName
+);

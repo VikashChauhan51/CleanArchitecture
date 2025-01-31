@@ -1,4 +1,4 @@
 ﻿using MediatorForge.Queries;
 
 namespace CleanArchitecture.Application.UseCases.Profile;
-public record ProfileQuery(long UserId) : IQuery<ProfileResponse>;
+public sealed record ProfileQuery(Guid UserId) : IQuery<Outcome<ProfileResponse>>;
