@@ -55,6 +55,18 @@ public static class HostBuildingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        if (app.Environment.IsDevelopment())
+        {
+            app.MapOpenApi();
+            app.MapScalarApiReference(options =>
+            {
+                options.WithTitle("My API");
+                options.WithTheme(ScalarTheme.Mars);
+                options.WithSidebar(true);
+                options.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
+            });
+        }
+
         app.UseRouting();
         app.UseMiddleware<ErrorHandlerMiddleware>();
         app.UseCors();
