@@ -1,5 +1,4 @@
-﻿using CleanArchitecture.Application.Behaviors;
-using FluentValidation;
+﻿using MediatorForge.Behaviors;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

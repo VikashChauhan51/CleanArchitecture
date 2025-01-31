@@ -10,10 +10,10 @@ internal sealed class SignUpEventNotificationHandler : IEventNotificationHandler
     {
         _logger = logger;
     }
-    public Task Handle(IEventNotification<SignUpEventNotification> notification, CancellationToken cancellationToken)
+    public Task Handle(SignUpEventNotification notification, CancellationToken cancellationToken)
     {
         _logger.LogInformation("SignUpEventNotificationHandler.Handle");
-        _logger.LogInformation($"SignUpEventNotificationHandler.Handle: {notification.Event.Event.Id}");
+        _logger.LogInformation($"SignUpEventNotificationHandler.Handle: {notification.Event.Id}");
         return Task.CompletedTask;
     }
 }
