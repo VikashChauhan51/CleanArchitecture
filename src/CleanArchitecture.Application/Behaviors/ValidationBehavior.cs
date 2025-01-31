@@ -1,28 +1,27 @@
-﻿using System;
-using FluentValidation;
-using MediatorForge.Behaviors;
-using MediatR;
+﻿using MediatorForge.Behaviors;
 
 namespace CleanArchitecture.Application.Behaviors;
 
 
 public class ValidationBehavior<TRequest, TResponse> : IBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse> where TResponse : notnull
 {
-    private readonly IValidator<TRequest>? _validator;
+    private readonly IEnumerable<IValidator<TRequest>>? _validators;
 
-    public ValidationBehavior(IValidator<TRequest>? validator)
+    public ValidationBehavior(IEnumerable<IValidator<TRequest>>? validators)
     {
-        _validator = validator;
+        _validators = validators;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
-        if (_validator != null)
+        if (_validators != null)
         {
-            var validationResult = await _validator.ValidateAsync(request, cancellationToken);
-            if (!validationResult.IsValid)
+            var validationResults = await Task.WhenAll(_validators.Select(v => v.ValidateAsync(request, cancellationToken)));
+            var failures = validationResults.SelectMany(result => result.Errors).Where(f => f != null).ToList();
+
+            if (failures.Count != 0)
             {
-                throw new ValidationException(validationResult.Errors);
+                throw new ValidationException(failures);
             }
         }
 

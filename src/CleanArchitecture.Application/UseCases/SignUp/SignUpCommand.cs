@@ -2,7 +2,7 @@
 using ResultifyCore;
 
 namespace CleanArchitecture.Application.UseCases.SignUp;
-public record SignUpCommand
+public sealed record SignUpCommand
 (
     string FullName,
     string UserName,

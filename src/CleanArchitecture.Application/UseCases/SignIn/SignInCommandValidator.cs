@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-
-
-namespace CleanArchitecture.Application.UseCases.SignIn;
+﻿namespace CleanArchitecture.Application.UseCases.SignIn;
 public sealed class SignInCommandValidator : AbstractValidator<SignInCommand>
 {
     public SignInCommandValidator()

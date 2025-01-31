@@ -2,8 +2,8 @@
 using ResultifyCore;
 
 namespace CleanArchitecture.Application.UseCases.SignIn;
-public record SignInCommand
+public sealed record SignInCommand
 (
     string UserName,
     string Password
-) : ICommand<Outcome>;
+) : ICommand<Outcome<string>>;

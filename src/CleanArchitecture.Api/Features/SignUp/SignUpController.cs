@@ -1,16 +1,16 @@
 ﻿using Asp.Versioning;
-using CleanArchitecture.Api.Core;
 using CleanArchitecture.Api.Features.SignIn;
 using CleanArchitecture.Application.UseCases.SignUp;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using ResultifyCore.AspNetCore;
 namespace CleanArchitecture.Api.Features.SignUp;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/signup")]
 [ApiVersion(1)]
-public class SignUpController : ApiControllerBase
+public class SignUpController : ControllerBase
 {
     private readonly ISender _sender;
     private readonly ILogger<SignUpController> _logger;
@@ -22,7 +22,7 @@ public class SignUpController : ApiControllerBase
 
     [HttpPost(Name = "signUp")]
     [MapToApiVersion(1)]
-    public async Task<IActionResult> SignIn(SignInRequest request)
+    public async Task<IActionResult> SignUp(SignUpRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -31,11 +31,7 @@ public class SignUpController : ApiControllerBase
         }
         var outcome = await _sender.Send(request.Adapt<SignUpCommand>());
 
-        return outcome.Match<IActionResult>
-        (
-            (id) => Ok(new {id}),
-            (status, error) => MapErrors(status, error)
-        );
+        return outcome.ToActionResult(this);
 
     }
 }

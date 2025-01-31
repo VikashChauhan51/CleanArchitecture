@@ -2,5 +2,5 @@
 
 
 namespace CleanArchitecture.Domain.Events;
-public sealed record class SignUpEvent(long UserId) : DomainEvent;
+public sealed record class SignUpEvent(Guid UserId) : DomainEvent;
 

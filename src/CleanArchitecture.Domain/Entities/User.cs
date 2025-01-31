@@ -2,7 +2,7 @@
 
 namespace CleanArchitecture.Domain.Entities;
 
-public sealed class User : Entity<long>
+public sealed class User : Entity<Guid>
 {
     public required string FullName { get; set; }
     public required string UserName { get; set; }

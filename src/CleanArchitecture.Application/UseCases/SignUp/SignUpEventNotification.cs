@@ -3,7 +3,7 @@ using MediatorForge.Notifications;
 
 
 namespace CleanArchitecture.Application.UseCases.SignUp;
-public class SignUpEventNotification : IEventNotification<SignUpEvent>
+public sealed class SignUpEventNotification : IEventNotification<SignUpEvent>
 {
     public SignUpEventNotification(SignUpEvent @event)
     {

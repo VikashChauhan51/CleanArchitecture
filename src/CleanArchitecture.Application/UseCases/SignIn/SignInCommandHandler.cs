@@ -1,11 +1,21 @@
-﻿using MediatorForge.Commands;
-using ResultifyCore;
+﻿using CleanArchitecture.Domain.Abstractions.Managers;
+using MediatorForge.Commands;
+using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.UseCases.SignIn;
-internal class SignInCommandHandler : ICommandHandler<SignInCommand, Outcome>
+internal sealed class SignInCommandHandler : ICommandHandler<SignInCommand, Outcome<string>>
 {
-    public Task<Outcome> Handle(SignInCommand request, CancellationToken cancellationToken)
+    private readonly IUserManager _userManager;
+    private readonly ILogger<SignInCommandHandler> _logger;
+    public SignInCommandHandler(IUserManager userManager, ILogger<SignInCommandHandler> logger)
     {
-        throw new NotImplementedException();
+        _logger = logger;
+        _userManager = userManager;
+    }
+    public async Task<Outcome<string>> Handle(SignInCommand request, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("SignInCommandHandler.Handle");
+        return await _userManager.SignInAsync(request.UserName, request.Password, cancellationToken);
+
     }
 }
