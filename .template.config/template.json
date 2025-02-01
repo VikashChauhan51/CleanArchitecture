@@ -23,27 +23,33 @@
       "datatype": "bool",
       "defaultValue": "true",
       "description": "Use PostgreSQL"
+    },
+    "DatabaseProvider": {
+      "type": "generated",
+      "generator": "evaluate",
+      "parameters": {
+        "expression": "(useSqlServer ? 'Microsoft.EntityFrameworkCore.SqlServer' : (usePostgreSQL ? 'Npgsql.EntityFrameworkCore.PostgreSQL' : ''))"
+      }
+    },
+    "DatabaseProviderVersion": {
+      "type": "generated",
+      "generator": "evaluate",
+      "parameters": {
+        "expression": "(useSqlServer ? '9.0.1' : (usePostgreSQL ? '9.0.3' : ''))"
+      }
     }
   },
   "sources": [
     {
       "modifiers": [
         {
-          "condition": "(useSqlServer)",
+          "condition": "(useSqlServer || usePostgreSQL)",
           "include": [
             "CleanArchitecture.Infrastructure/CleanArchitecture.Infrastructure.csproj"
           ],
           "replacements": {
-            "    <!-- DatabaseProvider -->": "    <PackageReference Include=\"Microsoft.EntityFrameworkCore.SqlServer\" Version=\"9.0.1\" />"
-          }
-        },
-        {
-          "condition": "(usePostgreSQL)",
-          "include": [
-            "CleanArchitecture.Infrastructure/CleanArchitecture.Infrastructure.csproj"
-          ],
-          "replacements": {
-            "    <!-- DatabaseProvider -->": "    <PackageReference Include=\"Npgsql.EntityFrameworkCore.PostgreSQL\" Version=\"9.0.3\" />"
+            "DatabaseProvider": "${DatabaseProvider}",
+            "DatabaseProviderVersion": "${DatabaseProviderVersion}"
           }
         }
       ]
