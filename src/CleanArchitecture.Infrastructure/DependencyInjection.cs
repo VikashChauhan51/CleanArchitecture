@@ -20,10 +20,18 @@ public static class DependencyInjection
 
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
+
+#if (useSqlServer)
+        services.AddDbContext<ApplicationDbContext>(options =>
+        {
+            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+        });
+#elif (usePostgreSQL)
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         });
+#endif
 
         services.AddScoped<ITimeProvider, DateTimeProvider>();
         services.AddScoped<ITokenProvider, TokenProvider>();

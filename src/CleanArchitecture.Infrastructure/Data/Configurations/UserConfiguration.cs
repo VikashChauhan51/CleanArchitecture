@@ -26,8 +26,5 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.PasswordHash)
             .IsRequired();
 
-        builder.HasIndex(u => u.UserName)
-            .IsUnique()
-            .HasDatabaseName("IX_User_UserName");
     }
 }

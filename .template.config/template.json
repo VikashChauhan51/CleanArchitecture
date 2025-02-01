@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Vikash Chauhan",
+  "classifications": ["Web", "API"],
+  "identity": "CleanArchitecture.Template",
+  "name": "Clean Architecture Template",
+  "shortName": "cleanarch",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "CleanArchitecture",
+  "preferNameDirectory": true,
+  "symbols": {
+    "useSqlServer": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Use Microsoft SQL Server"
+    },
+    "usePostgreSQL": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Use PostgreSQL"
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(useSqlServer)",
+          "include": [
+            "CleanArchitecture.Infrastructure/CleanArchitecture.Infrastructure.csproj"
+          ],
+          "replacements": {
+            "    <!-- DatabaseProvider -->": "    <PackageReference Include=\"Microsoft.EntityFrameworkCore.SqlServer\" Version=\"9.0.1\" />"
+          }
+        },
+        {
+          "condition": "(usePostgreSQL)",
+          "include": [
+            "CleanArchitecture.Infrastructure/CleanArchitecture.Infrastructure.csproj"
+          ],
+          "replacements": {
+            "    <!-- DatabaseProvider -->": "    <PackageReference Include=\"Npgsql.EntityFrameworkCore.PostgreSQL\" Version=\"9.0.3\" />"
+          }
+        }
+      ]
+    }
+  ]
+}
