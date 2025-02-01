@@ -12,7 +12,7 @@
   "sourceName": "CleanArchitecture",
   "preferNameDirectory": true,
   "symbols": {
-    "DatabaseProvider": {
+    "DatabaseProviderType": {
       "type": "parameter",
       "datatype": "choice",
       "choices": [
@@ -29,14 +29,32 @@
       "description": "Select the database provider"
     },
     "useSqlServer": {
-      "type": "bool",
-      "defaultValue": "false",
-      "fileRename": "useSqlServer"
+      "type": "computed",
+      "value": "DatabaseProviderType == 'SqlServer'"
     },
     "usePostgreSQL": {
-      "type": "bool",
-      "defaultValue": "false",
-      "fileRename": "usePostgreSQL"
+      "type": "computed",
+      "value": "DatabaseProviderType == 'PostgreSQL'"
+    },
+    "DatabaseProvider": {
+      "type": "generated",
+      "generator": "combine",
+      "parameters": {
+        "parts": [
+          "useSqlServer ? 'Microsoft.EntityFrameworkCore.SqlServer' : 'Npgsql.EntityFrameworkCore.PostgreSQL'"
+        ],
+        "separator": ""
+      }
+    },
+    "DatabaseProviderVersion": {
+      "type": "generated",
+      "generator": "combine",
+      "parameters": {
+        "parts": [
+          "useSqlServer ? '9.0.1' : '9.0.3'"
+        ],
+        "separator": ""
+      }
     }
   },
   "sources": [
@@ -63,18 +81,6 @@
           }
         }
       ]
-    }
-  ],
-  "postActions": [
-    {
-      "actionId": "c9215fc0-3a4b-11ea-b77f-2e728ce88125",
-      "description": "Set boolean flags based on choice",
-      "args": {
-        "DatabaseProvider": {
-          "SqlServer": "useSqlServer=true",
-          "PostgreSQL": "usePostgreSQL=true"
-        }
-      }
     }
   ]
 }
