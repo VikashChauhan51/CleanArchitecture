@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Abstractions.Repositories.Core;
+﻿using CleanArchitecture.Abstractions.Repositories.Core;
 using CleanArchitecture.Domain.Core;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +6,7 @@ using ResultifyCore;
 using System.Linq.Expressions;
 
 namespace CleanArchitecture.Infrastructure.Repositories.Core;
-public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey>, IRepositoryAsync<TEntity, TKey>
+public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
     where TEntity : class, IEntity
     where TKey : notnull
 {

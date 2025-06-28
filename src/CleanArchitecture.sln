@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.SharedKer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Api", "CleanArchitecture.Api\CleanArchitecture.Api.csproj", "{D521C952-BCF0-4EDA-8BC4-247AD6E19072}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanArchitecture.Abstractions", "CleanArchitecture.Abstractions\CleanArchitecture.Abstractions.csproj", "{EA3838C4-32B2-46CC-ADC4-6275A139CC77}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +41,15 @@ Global
 		{D521C952-BCF0-4EDA-8BC4-247AD6E19072}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D521C952-BCF0-4EDA-8BC4-247AD6E19072}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D521C952-BCF0-4EDA-8BC4-247AD6E19072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA3838C4-32B2-46CC-ADC4-6275A139CC77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA3838C4-32B2-46CC-ADC4-6275A139CC77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA3838C4-32B2-46CC-ADC4-6275A139CC77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA3838C4-32B2-46CC-ADC4-6275A139CC77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FAF1DC2B-E050-4883-8F97-9F1CA5995064}
 	EndGlobalSection
 EndGlobal

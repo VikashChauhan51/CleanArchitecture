@@ -1,8 +1,8 @@
-﻿using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Models;
+﻿using CleanArchitecture.Abstractions.Models;
+using CleanArchitecture.Domain.Entities;
 using ResultifyCore;
 
-namespace CleanArchitecture.Domain.Abstractions.Managers;
+namespace CleanArchitecture.Abstractions.Managers;
 public interface IUserManager
 {
     Task<Outcome<string>> SignInAsync(string userName, string password, CancellationToken cancellationToken);

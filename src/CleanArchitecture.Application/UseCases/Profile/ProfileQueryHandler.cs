@@ -1,15 +1,15 @@
-﻿using CleanArchitecture.Domain.Abstractions.Repositories;
+﻿using CleanArchitecture.Abstractions.Repositories;
 using MediatorForge.Queries;
 using Microsoft.Extensions.Logging;
 
 namespace CleanArchitecture.Application.UseCases.Profile;
 internal sealed class ProfileQueryHandler : IQueryHandler<ProfileQuery, Outcome<ProfileResponse>>
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserRepositoryAsync _userRepository;
     private readonly ILogger<ProfileQueryHandler> _logger;
     public ProfileQueryHandler
     (
-        IUserRepository userRepository,
+        IUserRepositoryAsync userRepository,
         ILogger<ProfileQueryHandler> logger
     )
     {

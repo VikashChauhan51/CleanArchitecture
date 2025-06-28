@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Infrastructure.Configurations;
+﻿namespace CleanArchitecture.Abstractions.Configurations;
 public sealed class JwtConfig
 {
     public string Key { get; init; } = string.Empty;
@@ -6,4 +6,3 @@ public sealed class JwtConfig
     public string Audience { get; init; } = string.Empty;
     public int TokenLifetimeInHours { get; init; } = 24;
 }
-

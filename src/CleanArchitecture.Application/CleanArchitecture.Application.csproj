@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\CleanArchitecture.Abstractions\CleanArchitecture.Abstractions.csproj" />
 		<ProjectReference Include="..\CleanArchitecture.Domain\CleanArchitecture.Domain.csproj" />
 		<ProjectReference Include="..\CleanArchitecture.SharedKernel\CleanArchitecture.SharedKernel.csproj" />
 	</ItemGroup>

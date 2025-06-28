@@ -1,4 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Abstractions.Services.Authentication;
+﻿namespace CleanArchitecture.Abstractions.Services;
 public interface IPasswordHasher
 {
     string HashPassword(string password);

@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Domain.Abstractions.Managers;
-using CleanArchitecture.Domain.Abstractions.Providers.Authentication;
-using CleanArchitecture.Domain.Abstractions.Repositories;
-using CleanArchitecture.Domain.Abstractions.Services.Authentication;
+﻿using CleanArchitecture.Abstractions.Managers;
+using CleanArchitecture.Abstractions.Models;
+using CleanArchitecture.Abstractions.Providers;
+using CleanArchitecture.Abstractions.Repositories;
+using CleanArchitecture.Abstractions.Services;
 using CleanArchitecture.Domain.Entities;
-using CleanArchitecture.Domain.Models;
 using Microsoft.Extensions.Logging;
 using ResultifyCore;
 
@@ -11,13 +11,13 @@ namespace CleanArchitecture.Infrastructure.Managers;
 
 public sealed class UserManager : IUserManager
 {
-    private readonly IUserRepository _userRepository;
+    private readonly IUserRepositoryAsync _userRepository;
     private readonly ITokenProvider _tokenProvider;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ILogger<UserManager> _logger;
     public UserManager
     (
-        IUserRepository userRepository,
+        IUserRepositoryAsync userRepository,
         ITokenProvider tokenProvider,
         IPasswordHasher passwordHasher,
         ILogger<UserManager> logger

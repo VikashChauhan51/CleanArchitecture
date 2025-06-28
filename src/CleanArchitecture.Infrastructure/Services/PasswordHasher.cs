@@ -1,9 +1,9 @@
-﻿using CleanArchitecture.Domain.Abstractions.Services.Authentication;
+﻿using CleanArchitecture.Abstractions.Services;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 
 
-namespace CleanArchitecture.Infrastructure.Services.Authentication;
+namespace CleanArchitecture.Infrastructure.Services;
 public sealed class PasswordHasher : IPasswordHasher
 {
     private const int _iterCount = 100_000;
@@ -60,8 +60,8 @@ public sealed class PasswordHasher : IPasswordHasher
 
     private static bool VerifyHashedPassword(byte[] hashedPassword, string password, out int iterCount, out KeyDerivationPrf prf)
     {
-        iterCount = default(int);
-        prf = default(KeyDerivationPrf);
+        iterCount = default;
+        prf = default;
 
         try
         {
@@ -126,10 +126,10 @@ public sealed class PasswordHasher : IPasswordHasher
     }
     private static uint ReadNetworkByteOrder(byte[] buffer, int offset)
     {
-        return ((uint)(buffer[offset + 0]) << 24)
-            | ((uint)(buffer[offset + 1]) << 16)
-            | ((uint)(buffer[offset + 2]) << 8)
-            | ((uint)(buffer[offset + 3]));
+        return (uint)buffer[offset + 0] << 24
+            | (uint)buffer[offset + 1] << 16
+            | (uint)buffer[offset + 2] << 8
+            | buffer[offset + 3];
     }
 
     private static void WriteNetworkByteOrder(byte[] buffer, int offset, uint value)

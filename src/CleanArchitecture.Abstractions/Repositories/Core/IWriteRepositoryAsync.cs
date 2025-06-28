@@ -1,6 +1,6 @@
 ﻿using CleanArchitecture.Domain.Core;
 
-namespace CleanArchitecture.Domain.Abstractions.Repositories.Core;
+namespace CleanArchitecture.Abstractions.Repositories.Core;
 public interface IWriteRepositoryAsync<in T, in TKey> where T : IEntity where TKey : notnull
 {
     Task AddAsync(T entity, CancellationToken cancellationToken);

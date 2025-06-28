@@ -1,4 +1,4 @@
-﻿using CleanArchitecture.Domain.Abstractions.Managers;
+﻿using CleanArchitecture.Abstractions.Managers;
 using MediatorForge.Commands;
 using Microsoft.Extensions.Logging;
 

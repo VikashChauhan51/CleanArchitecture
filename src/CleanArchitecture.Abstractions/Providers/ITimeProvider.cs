@@ -1,5 +1,4 @@
-﻿namespace CleanArchitecture.Domain.Abstractions.Providers;
-
+﻿namespace CleanArchitecture.Abstractions.Providers;
 public interface ITimeProvider
 {
     /// <summary>
@@ -56,3 +55,4 @@ public interface ITimeProvider
     /// <returns>The newly created <see cref="ITimer"/> instance.</returns>
     ITimer CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period);
 }
+
