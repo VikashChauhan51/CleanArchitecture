@@ -2,8 +2,8 @@
 // Copyright (c) Clean Architecture. All rights reserved.
 // </copyright>
 
-using CleanArchitecture.Domain.Core;
 using System.Linq.Expressions;
+using CleanArchitecture.Domain.Core;
 
 namespace CleanArchitecture.Abstractions.Repositories.Core;
 

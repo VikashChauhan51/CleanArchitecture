@@ -10,7 +10,7 @@ namespace CleanArchitecture.Abstractions.Repositories;
 /// <summary>
 /// Repository interface for user-related data operations.
 /// </summary>
-public interface IUserRepository : IRepositoryAsync<User, Guid>
+public interface IUserRepository : IRepository<User, Guid>
 {
     /// <summary>
     /// Retrieves a user by their username asynchronously.

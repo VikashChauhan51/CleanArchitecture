@@ -16,7 +16,7 @@ namespace CleanArchitecture.Infrastructure.Repositories.Core;
 /// </summary>
 /// <typeparam name="TEntity">The entity type.</typeparam>
 /// <typeparam name="TKey">The type of the entity's key.</typeparam>
-public abstract class Repository<TEntity, TKey> : IRepositoryAsync<TEntity, TKey>
+public abstract class Repository<TEntity, TKey> : IRepository<TEntity, TKey>
     where TEntity : class, IEntity
     where TKey : notnull
 {

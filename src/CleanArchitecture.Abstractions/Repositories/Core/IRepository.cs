@@ -11,7 +11,7 @@ namespace CleanArchitecture.Abstractions.Repositories.Core;
 /// </summary>
 /// <typeparam name="T">The entity type.</typeparam>
 /// <typeparam name="TKey">The type of the entity's key.</typeparam>
-public interface IRepositoryAsync<T, TKey> : IReadRepository<T, TKey>, IWriteRepositoryAsync<T, TKey>
+public interface IRepository<T, TKey> : IReadRepository<T, TKey>, IWriteRepository<T, TKey>
     where T : IEntity
     where TKey : notnull
 {

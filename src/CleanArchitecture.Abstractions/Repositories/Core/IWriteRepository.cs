@@ -11,7 +11,7 @@ namespace CleanArchitecture.Abstractions.Repositories.Core;
 /// </summary>
 /// <typeparam name="T">The entity type.</typeparam>
 /// <typeparam name="TKey">The type of the entity's key.</typeparam>
-public interface IWriteRepositoryAsync<in T, in TKey>
+public interface IWriteRepository<in T, in TKey>
     where T : IEntity
     where TKey : notnull
 {
