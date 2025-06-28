@@ -2,12 +2,12 @@
 // Copyright (c) Clean Architecture. All rights reserved.
 // </copyright>
 
-using System.Linq.Expressions;
 using CleanArchitecture.Abstractions.Repositories.Core;
 using CleanArchitecture.Domain.Core;
 using CleanArchitecture.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using ResultifyCore;
+using System.Linq.Expressions;
 
 namespace CleanArchitecture.Infrastructure.Repositories.Core;
 

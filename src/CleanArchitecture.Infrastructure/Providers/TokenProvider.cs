@@ -2,14 +2,14 @@
 // Copyright (c) Clean Architecture. All rights reserved.
 // </copyright>
 
-using System.Security.Claims;
-using System.Text;
 using CleanArchitecture.Abstractions.Configurations;
 using CleanArchitecture.Abstractions.Providers;
 using CleanArchitecture.Domain.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 
 namespace CleanArchitecture.Infrastructure.Providers;
 

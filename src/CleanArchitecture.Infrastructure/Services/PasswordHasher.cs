@@ -2,9 +2,9 @@
 // Copyright (c) Clean Architecture. All rights reserved.
 // </copyright>
 
-using System.Security.Cryptography;
 using CleanArchitecture.Abstractions.Services;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Cryptography;
 
 namespace CleanArchitecture.Infrastructure.Services;
 

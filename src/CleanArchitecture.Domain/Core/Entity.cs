@@ -4,6 +4,12 @@
 
 namespace CleanArchitecture.Domain.Core;
 
+/// <summary>
+/// Represents the base class for all entities with a strongly-typed identifier.
+/// </summary>
+/// <typeparam name="T">
+/// The type of the entity identifier.
+/// </typeparam>
 public abstract class Entity<T> : IEntity<T>
     where T : notnull
 {

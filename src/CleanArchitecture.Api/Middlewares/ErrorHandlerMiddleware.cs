@@ -6,6 +6,9 @@ using System.Text.Json.Serialization;
 
 namespace CleanArchitecture.Api.Middlewares;
 
+/// <summary>
+/// Middleware for handling exceptions and returning standardized error responses.
+/// </summary>
 public class ErrorHandlerMiddleware
 {
     private readonly RequestDelegate next;
@@ -14,8 +17,8 @@ public class ErrorHandlerMiddleware
     /// <summary>
     /// Initializes a new instance of the <see cref="ErrorHandlerMiddleware"/> class.
     /// </summary>
-    /// <param name="next"></param>
-    /// <param name="logger"></param>
+    /// <param name="next">The next middleware in the pipeline.</param>
+    /// <param name="logger">The logger instance for logging errors.</param>
     public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {
         this.next = next;
@@ -23,9 +26,9 @@ public class ErrorHandlerMiddleware
     }
 
     /// <summary>
-    ///
+    /// Invokes the middleware to handle exceptions that occur during request processing.
     /// </summary>
-    /// <param name="context"></param>
+    /// <param name="context">The HTTP context for the current request.</param>
     /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
     public async Task InvokeAsync(HttpContext context)
     {
@@ -39,6 +42,12 @@ public class ErrorHandlerMiddleware
         }
     }
 
+    /// <summary>
+    /// Handles exceptions by logging them and writing a standardized error response.
+    /// </summary>
+    /// <param name="context">The HTTP context for the current request.</param>
+    /// <param name="exception">The exception that was thrown.</param>
+    /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
         this.logger.LogError(exception, "An unhandled exception has occurred");
@@ -81,7 +90,8 @@ public class ErrorHandlerMiddleware
                             .GroupBy(x => x.PropertyName, StringComparer.Ordinal)
                             .ToDictionary(
                                 g => g.Key,
-                                g => g.Select(e => e.ErrorMessage).ToArray(), StringComparer.Ordinal);
+                                g => g.Select(e => e.ErrorMessage).ToArray(),
+                                StringComparer.Ordinal);
             if (dictionary != null)
             {
                 problemDetails.Errors = dictionary;
