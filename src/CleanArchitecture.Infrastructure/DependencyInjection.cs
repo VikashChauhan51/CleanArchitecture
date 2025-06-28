@@ -27,7 +27,7 @@ public static class DependencyInjection
         services.AddScoped<ITimeProvider, DateTimeProvider>();
         services.AddScoped<ITokenProvider, TokenProvider>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
-        services.AddScoped<IUserRepositoryAsync, UserRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserManager, UserManager>();
 
         return services;

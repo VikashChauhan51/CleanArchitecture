@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 
 namespace CleanArchitecture.Abstractions.Repositories.Core;
-public interface IReadRepositoryAsync<T, in TKey> where T : IEntity where TKey : notnull
+public interface IReadRepository<T, in TKey> where T : IEntity where TKey : notnull
 {
     Task<T?> GetByIdAsync(TKey id, CancellationToken cancellationToken);
     Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken);

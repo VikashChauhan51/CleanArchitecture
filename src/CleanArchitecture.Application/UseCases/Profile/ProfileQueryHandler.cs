@@ -5,11 +5,11 @@ using Microsoft.Extensions.Logging;
 namespace CleanArchitecture.Application.UseCases.Profile;
 internal sealed class ProfileQueryHandler : IQueryHandler<ProfileQuery, Outcome<ProfileResponse>>
 {
-    private readonly IUserRepositoryAsync _userRepository;
+    private readonly IUserRepository _userRepository;
     private readonly ILogger<ProfileQueryHandler> _logger;
     public ProfileQueryHandler
     (
-        IUserRepositoryAsync userRepository,
+        IUserRepository userRepository,
         ILogger<ProfileQueryHandler> logger
     )
     {

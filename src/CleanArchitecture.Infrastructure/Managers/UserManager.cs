@@ -11,13 +11,13 @@ namespace CleanArchitecture.Infrastructure.Managers;
 
 public sealed class UserManager : IUserManager
 {
-    private readonly IUserRepositoryAsync _userRepository;
+    private readonly IUserRepository _userRepository;
     private readonly ITokenProvider _tokenProvider;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ILogger<UserManager> _logger;
     public UserManager
     (
-        IUserRepositoryAsync userRepository,
+        IUserRepository userRepository,
         ITokenProvider tokenProvider,
         IPasswordHasher passwordHasher,
         ILogger<UserManager> logger
