@@ -11,11 +11,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace CleanArchitecture.Infrastructure;
+
+/// <summary>
+/// Provides extension methods for registering infrastructure services.
+/// </summary>
 public static class DependencyInjection
 {
-
+    /// <summary>
+    /// Registers infrastructure services and dependencies.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <param name="configuration">The application configuration.</param>
+    /// <returns>The updated service collection.</returns>
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
 

@@ -8,6 +8,10 @@ using System.Security.Claims;
 using System.Text;
 
 namespace CleanArchitecture.Infrastructure.Providers;
+
+/// <summary>
+/// Provides functionality to generate JWT access tokens for users.
+/// </summary>
 public sealed class TokenProvider : ITokenProvider
 {
     private readonly JwtConfig jwtConfig;
@@ -16,7 +20,7 @@ public sealed class TokenProvider : ITokenProvider
         jwtConfig = configuration.Value;
     }
 
-
+    /// <inheritdoc />
     public string AccessToken(User user)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key));

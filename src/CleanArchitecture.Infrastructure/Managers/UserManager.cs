@@ -9,6 +9,9 @@ using ResultifyCore;
 
 namespace CleanArchitecture.Infrastructure.Managers;
 
+/// <summary>
+/// Provides user management operations such as sign-in and sign-up.
+/// </summary>
 public sealed class UserManager : IUserManager
 {
     private readonly IUserRepository _userRepository;
@@ -30,6 +33,7 @@ public sealed class UserManager : IUserManager
 
     }
 
+    /// <inheritdoc />
     public async Task<Outcome<string>> SignInAsync(string userName, string password, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetByUserNameAsync(userName, cancellationToken);
@@ -46,6 +50,7 @@ public sealed class UserManager : IUserManager
         return Outcome<string>.Success(_tokenProvider.AccessToken(user));
     }
 
+    /// <inheritdoc />
     public async Task<Outcome<User>> SignUpAsync(SignUpModel signUpModel, CancellationToken cancellationToken)
     {
         if (signUpModel is null)

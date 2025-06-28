@@ -6,6 +6,12 @@ using ResultifyCore;
 using System.Linq.Expressions;
 
 namespace CleanArchitecture.Infrastructure.Repositories.Core;
+
+/// <summary>
+/// Base repository implementation for common data access operations.
+/// </summary>
+/// <typeparam name="TEntity">The entity type.</typeparam>
+/// <typeparam name="TKey">The type of the entity's key.</typeparam>
 public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
     where TEntity : class, IEntity
     where TKey : notnull
@@ -17,6 +23,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         Context = context;
     }
 
+    /// <inheritdoc />
     public void Add(TEntity entity)
     {
         Guard.ThrowIfArgumentIsNull(entity);
@@ -24,6 +31,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         Context.SaveChanges();
     }
 
+    /// <inheritdoc />
     public async Task AddAsync(TEntity entity, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNull(entity);
@@ -31,6 +39,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         await Context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public void AddRange(IEnumerable<TEntity> entities)
     {
         Guard.ThrowIfArgumentIsNull(entities);
@@ -39,6 +48,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         Context.SaveChanges(true);
     }
 
+    /// <inheritdoc />
     public async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNull(entities);
@@ -47,6 +57,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         await Context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public void Delete(TKey id)
     {
         Guard.ThrowIfArgumentIsNull(id);
@@ -55,6 +66,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         Delete(entity!);
     }
 
+    /// <inheritdoc />
     public void Delete(TEntity entity)
     {
         Guard.ThrowIfArgumentIsNull(entity);
@@ -62,6 +74,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         Context.SaveChanges();
     }
 
+    /// <inheritdoc />
     public async Task DeleteAsync(TKey id, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNull(id);
@@ -70,6 +83,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         await DeleteAsync(entity!, cancellationToken);
     }
 
+    /// <inheritdoc />
     public async Task DeleteAsync(TEntity entity, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNull(entity);
@@ -77,6 +91,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         await Context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public void DeleteRange(IEnumerable<TEntity> entities)
     {
         Guard.ThrowIfArgumentIsNull(entities);
@@ -85,38 +100,45 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         Context.SaveChanges(true);
     }
 
+    /// <inheritdoc />
     public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
     {
         Guard.ThrowIfArgumentIsNull(predicate);
         return Context.Set<TEntity>().Where(predicate).ToList();
     }
 
+    /// <inheritdoc />
     public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNull(predicate);
         return await Context.Set<TEntity>().Where(predicate).ToListAsync();
     }
 
+    /// <inheritdoc />
     public IEnumerable<TEntity> GetAll()
     {
         return Context.Set<TEntity>().AsNoTracking().ToList();
     }
+    /// <inheritdoc />
     public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await Context.Set<TEntity>().ToListAsync();
     }
 
+    /// <inheritdoc />
     public TEntity? GetById(TKey id)
     {
         Guard.ThrowIfArgumentIsNull(id);
         return Context.Set<TEntity>().Find(id);
     }
+    /// <inheritdoc />
     public async Task<TEntity?> GetByIdAsync(TKey id, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNull(id);
         return await Context.Set<TEntity>().FindAsync(id);
     }
 
+    /// <inheritdoc />
     public PaginatedResult<TEntity> GetPagedList(int pageSize, int pageNumber)
     {
         Guard.ThrowIfArgumentIsNegativeOrZero(pageSize);
@@ -144,6 +166,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
        );
     }
 
+    /// <inheritdoc />
     public async Task<PaginatedResult<TEntity>> GetPagedListAsync(int pageSize, int pageNumber, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNegativeOrZero(pageSize);
@@ -172,11 +195,13 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
        );
     }
 
+    /// <inheritdoc />
     public IQueryable<TEntity> GetQueryable()
     {
         return Context.Set<TEntity>().AsQueryable();
     }
 
+    /// <inheritdoc />
     public void Update(TEntity entity)
     {
         Guard.ThrowIfArgumentIsNull(entity);
@@ -184,6 +209,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         Context.SaveChanges(true);
     }
 
+    /// <inheritdoc />
     public async Task UpdateAsync(TEntity entity, CancellationToken cancellationToken)
     {
         Guard.ThrowIfArgumentIsNull(entity);
@@ -191,6 +217,7 @@ public abstract class Repository<TEntity, TKey> :IRepositoryAsync<TEntity, TKey>
         await Context.SaveChangesAsync(true, cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
     public void UpdateRange(IEnumerable<TEntity> entities)
     {
         Guard.ThrowIfArgumentIsNull(entities);

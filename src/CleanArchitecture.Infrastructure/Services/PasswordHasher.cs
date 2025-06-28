@@ -2,13 +2,17 @@
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 
-
 namespace CleanArchitecture.Infrastructure.Services;
+
+/// <summary>
+/// Provides password hashing and verification using a secure algorithm.
+/// </summary>
 public sealed class PasswordHasher : IPasswordHasher
 {
     private const int _iterCount = 100_000;
     private readonly static RandomNumberGenerator _rng = RandomNumberGenerator.Create();
 
+    /// <inheritdoc />
     public string HashPassword(string password)
     {
         ArgumentNullException.ThrowIfNull(password);
@@ -16,6 +20,7 @@ public sealed class PasswordHasher : IPasswordHasher
         return Convert.ToBase64String(HashPassword(password, _rng));
     }
 
+    /// <inheritdoc />
     public bool VerifyHashedPassword(string hashedPassword, string providedPassword)
     {
         ArgumentNullException.ThrowIfNull(hashedPassword);

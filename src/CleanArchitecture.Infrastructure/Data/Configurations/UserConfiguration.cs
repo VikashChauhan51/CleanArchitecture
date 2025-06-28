@@ -3,8 +3,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Data.Configurations;
+
+/// <summary>
+/// Configures the User entity for Entity Framework Core.
+/// </summary>
 internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
 {
+    /// <inheritdoc />
     public void Configure(EntityTypeBuilder<User> builder)
     {
         // Configure the primary key
