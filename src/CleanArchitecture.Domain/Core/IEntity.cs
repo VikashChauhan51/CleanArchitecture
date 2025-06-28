@@ -1,11 +1,16 @@
-﻿namespace CleanArchitecture.Domain.Core;
+﻿// <copyright file="IEntity.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
 
-public interface IEntity<T> : IEntity where T : notnull
+namespace CleanArchitecture.Domain.Core;
+
+public interface IEntity<T> : IEntity
+    where T : notnull
 {
-    public T Id { get; set; }
+    T Id { get; set; }
 }
 
 public interface IEntity
 {
-    public DateTimeOffset CreatedAt { get; set; }
+    DateTimeOffset CreatedAt { get; set; }
 }

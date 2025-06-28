@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿// <copyright file="ITokenProvider.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using CleanArchitecture.Domain.Entities;
 
 namespace CleanArchitecture.Abstractions.Providers;
 
@@ -14,4 +18,3 @@ public interface ITokenProvider
     /// <returns>The generated access token.</returns>
     string AccessToken(User user);
 }
-

@@ -1,4 +1,9 @@
-﻿namespace CleanArchitecture.Abstractions.Providers;
+﻿// <copyright file="ITimeProvider.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+namespace CleanArchitecture.Abstractions.Providers;
+
 public interface ITimeProvider
 {
     /// <summary>
@@ -6,12 +11,14 @@ public interface ITimeProvider
     /// Coordinated Universal Time (UTC) date and time and whose offset is Zero,
     /// all according to this <see cref="TimeProvider"/>'s notion of time.
     /// </summary>
+    /// <returns></returns>
     DateTimeOffset GetUtcNow();
 
     /// <summary>
     /// Gets a <see cref="DateTimeOffset"/> value that is set to the current date and time according to this <see cref="TimeProvider"/>'s
     /// notion of time based on <see cref="GetUtcNow"/>, with the offset set to the <see cref="LocalTimeZone"/>'s offset from Coordinated Universal Time (UTC).
     /// </summary>
+    /// <returns></returns>
     DateTimeOffset GetLocalNow();
 
     /// <summary>
@@ -55,4 +62,3 @@ public interface ITimeProvider
     /// <returns>The newly created <see cref="ITimer"/> instance.</returns>
     ITimer CreateTimer(TimerCallback callback, object state, TimeSpan dueTime, TimeSpan period);
 }
-

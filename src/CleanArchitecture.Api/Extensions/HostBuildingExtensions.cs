@@ -1,4 +1,8 @@
-﻿using Asp.Versioning;
+﻿// <copyright file="HostBuildingExtensions.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using Asp.Versioning;
 using CleanArchitecture.Api.Middlewares;
 using CleanArchitecture.Application;
 using CleanArchitecture.Infrastructure;
@@ -31,7 +35,7 @@ public static class HostBuildingExtensions
             options.DefaultApiVersion = new ApiVersion(1, 0);
             options.AssumeDefaultVersionWhenUnspecified = true;
             options.ReportApiVersions = true;
-            options.ApiVersionReader = new UrlSegmentApiVersionReader();            
+            options.ApiVersionReader = new UrlSegmentApiVersionReader();
         }).AddApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'VVV";
@@ -41,7 +45,6 @@ public static class HostBuildingExtensions
         builder.Services.AddFluentValidationAutoValidation(config =>
         {
             config.DisableDataAnnotationsValidation = true;
-
         }).AddFluentValidationClientsideAdapters();
 
         builder.Services.AddAuthorization();
@@ -75,4 +78,3 @@ public static class HostBuildingExtensions
         return app;
     }
 }
-

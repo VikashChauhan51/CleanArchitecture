@@ -1,4 +1,8 @@
-﻿namespace CleanArchitecture.Abstractions.Services;
+﻿// <copyright file="IPasswordHasher.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+namespace CleanArchitecture.Abstractions.Services;
 
 /// <summary>
 /// Provides methods for hashing and verifying passwords.

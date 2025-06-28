@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Domain.Entities;
+﻿// <copyright file="ApplicationDbContext.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using CleanArchitecture.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanArchitecture.Infrastructure.Data;

@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Abstractions.Managers;
+﻿// <copyright file="UserManager.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using CleanArchitecture.Abstractions.Managers;
 using CleanArchitecture.Abstractions.Models;
 using CleanArchitecture.Abstractions.Providers;
 using CleanArchitecture.Abstractions.Repositories;
@@ -14,40 +18,47 @@ namespace CleanArchitecture.Infrastructure.Managers;
 /// </summary>
 public sealed class UserManager : IUserManager
 {
-    private readonly IUserRepository _userRepository;
-    private readonly ITokenProvider _tokenProvider;
-    private readonly IPasswordHasher _passwordHasher;
-    private readonly ILogger<UserManager> _logger;
-    public UserManager
-    (
+    private readonly IUserRepository userRepository;
+    private readonly ITokenProvider tokenProvider;
+    private readonly IPasswordHasher passwordHasher;
+    private readonly ILogger<UserManager> logger;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserManager"/> class.
+    /// </summary>
+    /// <param name="userRepository"></param>
+    /// <param name="tokenProvider"></param>
+    /// <param name="passwordHasher"></param>
+    /// <param name="logger"></param>
+    public UserManager(
         IUserRepository userRepository,
         ITokenProvider tokenProvider,
         IPasswordHasher passwordHasher,
-        ILogger<UserManager> logger
-    )
+        ILogger<UserManager> logger)
     {
-        _logger = logger;
-        _userRepository = userRepository;
-        _tokenProvider = tokenProvider;
-        _passwordHasher = passwordHasher;
-
+        this.logger = logger;
+        this.userRepository = userRepository;
+        this.tokenProvider = tokenProvider;
+        this.passwordHasher = passwordHasher;
     }
 
     /// <inheritdoc />
     public async Task<Outcome<string>> SignInAsync(string userName, string password, CancellationToken cancellationToken)
     {
-        var user = await _userRepository.GetByUserNameAsync(userName, cancellationToken);
+        var user = await this.userRepository.GetByUserNameAsync(userName, cancellationToken).ConfigureAwait(false);
         if (user == null)
         {
-            _logger.LogWarning("User not found");
+            this.logger.LogWarning("User not found");
             return Outcome<string>.NotFound(new OutcomeError("User not found"));
         }
-        if (!_passwordHasher.VerifyHashedPassword(user.PasswordHash, password))
+
+        if (!this.passwordHasher.VerifyHashedPassword(user.PasswordHash, password))
         {
-            _logger.LogWarning("Invalid password");
+            this.logger.LogWarning("Invalid password");
             return Outcome<string>.NotFound(new OutcomeError("Invalid password"));
         }
-        return Outcome<string>.Success(_tokenProvider.AccessToken(user));
+
+        return Outcome<string>.Success(this.tokenProvider.AccessToken(user));
     }
 
     /// <inheritdoc />
@@ -57,10 +68,11 @@ public sealed class UserManager : IUserManager
         {
             return Outcome<User>.Validation(new OutcomeError("Invalid model"));
         }
-        var user = await _userRepository.GetByUserNameAsync(signUpModel.UserName, cancellationToken);
+
+        var user = await this.userRepository.GetByUserNameAsync(signUpModel.UserName, cancellationToken).ConfigureAwait(false);
         if (user != null)
         {
-            _logger.LogWarning("User already exists");
+            this.logger.LogWarning("User already exists");
             return Outcome<User>.Conflict(new OutcomeError("User already exists"));
         }
 
@@ -69,12 +81,11 @@ public sealed class UserManager : IUserManager
             Id = Guid.CreateVersion7(),
             FullName = signUpModel.FullName,
             UserName = signUpModel.UserName,
-            PasswordHash = _passwordHasher.HashPassword(signUpModel.Password),
-            CreatedAt = DateTime.UtcNow
+            PasswordHash = this.passwordHasher.HashPassword(signUpModel.Password),
+            CreatedAt = DateTime.UtcNow,
         };
 
-        await _userRepository.AddAsync(user, cancellationToken);
+        await this.userRepository.AddAsync(user, cancellationToken).ConfigureAwait(false);
         return Outcome<User>.Success(user);
     }
-
 }

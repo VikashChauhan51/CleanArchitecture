@@ -1,4 +1,8 @@
-﻿using Asp.Versioning;
+﻿// <copyright file="ProfileController.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using Asp.Versioning;
 using CleanArchitecture.Application.UseCases.Profile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -11,26 +15,27 @@ namespace CleanArchitecture.Api.Features.Profile;
 [ApiVersion(1)]
 public class ProfileController : ControllerBase
 {
-    private readonly ISender _sender;
-    private readonly ILogger<ProfileController> _logger;
+    private readonly ISender sender;
+    private readonly ILogger<ProfileController> logger;
+
     public ProfileController(ISender sender, ILogger<ProfileController> logger)
     {
-        _sender = sender;
-        _logger = logger;
+        this.sender = sender;
+        this.logger = logger;
     }
 
     [HttpGet(Name = "Profile")]
     [MapToApiVersion(1)]
     public async Task<IActionResult> Profile([FromRoute] Guid userId)
     {
-        if (!ModelState.IsValid)
+        if (!this.ModelState.IsValid)
         {
-            _logger.LogDebug("Invalid request");
-            return BadRequest(ModelState);
+            this.logger.LogDebug("Invalid request");
+            return this.BadRequest(this.ModelState);
         }
-        var outcome = await _sender.Send(new ProfileQuery(userId));
+
+        var outcome = await this.sender.Send(new ProfileQuery(userId));
 
         return outcome.ToActionResult(this);
-
     }
 }

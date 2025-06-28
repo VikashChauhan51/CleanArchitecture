@@ -1,40 +1,53 @@
-﻿using System.Text.Json.Serialization;
+﻿// <copyright file="ErrorHandlerMiddleware.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
 
+using System.Text.Json.Serialization;
 
 namespace CleanArchitecture.Api.Middlewares;
 
 public class ErrorHandlerMiddleware
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<ErrorHandlerMiddleware> _logger;
+    private readonly RequestDelegate next;
+    private readonly ILogger<ErrorHandlerMiddleware> logger;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ErrorHandlerMiddleware"/> class.
+    /// </summary>
+    /// <param name="next"></param>
+    /// <param name="logger"></param>
     public ErrorHandlerMiddleware(RequestDelegate next, ILogger<ErrorHandlerMiddleware> logger)
     {
-        _next = next;
-        _logger = logger;
+        this.next = next;
+        this.logger = logger;
     }
 
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
     public async Task InvokeAsync(HttpContext context)
     {
         try
         {
-            await _next(context);
+            await this.next(context).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
-            await HandleExceptionAsync(context, ex);
+            await this.HandleExceptionAsync(context, ex).ConfigureAwait(false);
         }
     }
 
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        _logger.LogError(exception, "An unhandled exception has occurred");
+        this.logger.LogError(exception, "An unhandled exception has occurred");
 
         var statusCode = exception switch
         {
             ValidationException => StatusCodes.Status400BadRequest,
             UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
-            _ => StatusCodes.Status500InternalServerError
+            _ => StatusCodes.Status500InternalServerError,
         };
 
         context.Response.StatusCode = statusCode;
@@ -48,7 +61,7 @@ public class ErrorHandlerMiddleware
                 StatusCodes.Status403Forbidden => "Access Denied",
                 StatusCodes.Status401Unauthorized => "Unauthorized",
                 StatusCodes.Status429TooManyRequests => "Too Many Requests",
-                _ => "Internal Server Error"
+                _ => "Internal Server Error",
             },
             Detail = exception.Message,
             Instance = context.Request.Path,
@@ -58,33 +71,29 @@ public class ErrorHandlerMiddleware
                 StatusCodes.Status403Forbidden => "https://httpstatuses.com/403",
                 StatusCodes.Status401Unauthorized => "https://httpstatuses.com/401",
                 StatusCodes.Status429TooManyRequests => "https://httpstatuses.com/429",
-                _ => "https://httpstatuses.com/500"
-            }
+                _ => "https://httpstatuses.com/500",
+            },
         };
 
         if (exception is ValidationException validation)
         {
             Dictionary<string, string[]>? dictionary = validation.Errors?
-                            .GroupBy(x => x.PropertyName)
+                            .GroupBy(x => x.PropertyName, StringComparer.Ordinal)
                             .ToDictionary(
                                 g => g.Key,
-                                g => g.Select(e => e.ErrorMessage).ToArray()
-                            );
+                                g => g.Select(e => e.ErrorMessage).ToArray(), StringComparer.Ordinal);
             if (dictionary != null)
             {
                 problemDetails.Errors = dictionary;
             }
         }
 
-        await context.Response.WriteAsJsonAsync
-        (
+        await context.Response.WriteAsJsonAsync(
             problemDetails,
             options: new JsonSerializerOptions(JsonSerializerDefaults.Web)
             {
-                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             },
-            contentType: MediaTypeNames.Application.ProblemJson
-        );
+            contentType: MediaTypeNames.Application.ProblemJson).ConfigureAwait(false);
     }
 }
-

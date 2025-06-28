@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Abstractions.Models;
+﻿// <copyright file="IUserManager.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using CleanArchitecture.Abstractions.Models;
 using CleanArchitecture.Domain.Entities;
 using ResultifyCore;
 

@@ -1,4 +1,8 @@
-﻿namespace CleanArchitecture.Abstractions.Providers;
+﻿// <copyright file="IPermissionProvider.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+namespace CleanArchitecture.Abstractions.Providers;
 
 /// <summary>
 /// Provides user permission retrieval functionality.

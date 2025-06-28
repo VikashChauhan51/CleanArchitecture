@@ -1,6 +1,10 @@
-﻿using CleanArchitecture.Abstractions.Services;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿// <copyright file="PasswordHasher.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
 using System.Security.Cryptography;
+using CleanArchitecture.Abstractions.Services;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace CleanArchitecture.Infrastructure.Services;
 
@@ -9,15 +13,15 @@ namespace CleanArchitecture.Infrastructure.Services;
 /// </summary>
 public sealed class PasswordHasher : IPasswordHasher
 {
-    private const int _iterCount = 100_000;
-    private readonly static RandomNumberGenerator _rng = RandomNumberGenerator.Create();
+    private const int IterCount = 100_000;
+    private static readonly RandomNumberGenerator Rng = RandomNumberGenerator.Create();
 
     /// <inheritdoc />
     public string HashPassword(string password)
     {
         ArgumentNullException.ThrowIfNull(password);
 
-        return Convert.ToBase64String(HashPassword(password, _rng));
+        return Convert.ToBase64String(HashPassword(password, Rng));
     }
 
     /// <inheritdoc />
@@ -33,20 +37,20 @@ public sealed class PasswordHasher : IPasswordHasher
         {
             return false;
         }
+
         switch (decodedHashedPassword[0])
         {
-
             case 0x01:
                 if (VerifyHashedPassword(decodedHashedPassword, providedPassword, out int embeddedIterCount, out KeyDerivationPrf prf))
                 {
                     // If this hasher was configured with a higher iteration count, change the entry now.
-                    if (embeddedIterCount < _iterCount)
+                    if (embeddedIterCount < IterCount)
                     {
                         return false;
                     }
 
                     // If the old PRF is SHA1 or SHA256, upgrade to SHA512 and rehash.
-                    if (prf == KeyDerivationPrf.HMACSHA1 || prf == KeyDerivationPrf.HMACSHA256)
+                    if (prf is KeyDerivationPrf.HMACSHA1 or KeyDerivationPrf.HMACSHA256)
                     {
                         return false;
                     }
@@ -80,6 +84,7 @@ public sealed class PasswordHasher : IPasswordHasher
             {
                 return false;
             }
+
             byte[] salt = new byte[saltLength];
             Buffer.BlockCopy(hashedPassword, 13, salt, 0, salt.Length);
 
@@ -89,6 +94,7 @@ public sealed class PasswordHasher : IPasswordHasher
             {
                 return false;
             }
+
             byte[] expectedSubkey = new byte[subkeyLength];
             Buffer.BlockCopy(hashedPassword, 13 + salt.Length, expectedSubkey, 0, expectedSubkey.Length);
 
@@ -109,7 +115,7 @@ public sealed class PasswordHasher : IPasswordHasher
     {
         return HashPassword(password, rng,
             prf: KeyDerivationPrf.HMACSHA512,
-            iterCount: _iterCount,
+            iterCount: IterCount,
             saltSize: 128 / 8,
             numBytesRequested: 256 / 8);
     }
@@ -129,11 +135,12 @@ public sealed class PasswordHasher : IPasswordHasher
         Buffer.BlockCopy(subkey, 0, outputBytes, 13 + saltSize, subkey.Length);
         return outputBytes;
     }
+
     private static uint ReadNetworkByteOrder(byte[] buffer, int offset)
     {
-        return (uint)buffer[offset + 0] << 24
-            | (uint)buffer[offset + 1] << 16
-            | (uint)buffer[offset + 2] << 8
+        return ((uint)buffer[offset + 0] << 24)
+            | ((uint)buffer[offset + 1] << 16)
+            | ((uint)buffer[offset + 2] << 8)
             | buffer[offset + 3];
     }
 

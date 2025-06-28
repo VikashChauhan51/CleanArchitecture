@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Abstractions.Providers;
+﻿// <copyright file="DateTimeProvider.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using CleanArchitecture.Abstractions.Providers;
 
 namespace CleanArchitecture.Infrastructure.Providers;
 

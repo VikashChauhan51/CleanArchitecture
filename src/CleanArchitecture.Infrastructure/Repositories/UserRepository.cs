@@ -1,9 +1,12 @@
-﻿using CleanArchitecture.Abstractions.Repositories;
+﻿// <copyright file="UserRepository.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using CleanArchitecture.Abstractions.Repositories;
 using CleanArchitecture.Domain.Entities;
 using CleanArchitecture.Infrastructure.Data;
 using CleanArchitecture.Infrastructure.Repositories.Core;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
 
 namespace CleanArchitecture.Infrastructure.Repositories;
 
@@ -15,6 +18,6 @@ public sealed class UserRepository(ApplicationDbContext context) : Repository<Us
     /// <inheritdoc />
     public Task<User?> GetByUserNameAsync(string userName, CancellationToken cancellationToken)
     {
-        return Context.Users.FirstOrDefaultAsync(u => u.UserName == userName, cancellationToken);
+        return this.Context.Users.FirstOrDefaultAsync(u => u.UserName == userName, cancellationToken);
     }
 }

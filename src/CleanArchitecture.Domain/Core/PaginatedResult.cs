@@ -1,4 +1,9 @@
-﻿namespace CleanArchitecture.Domain.Core;
+﻿// <copyright file="PaginatedResult.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+namespace CleanArchitecture.Domain.Core;
+
 public sealed record class PaginatedResult<TEntity>
 (
     long Count,
@@ -10,5 +15,5 @@ public sealed record class PaginatedResult<TEntity>
     bool HasNextPage,
     bool IsFirstPage,
     bool IsLastPage,
-    IEnumerable<TEntity> Entities
-) where TEntity : IEntity;
+    IEnumerable<TEntity> Entities)
+    where TEntity : IEntity;

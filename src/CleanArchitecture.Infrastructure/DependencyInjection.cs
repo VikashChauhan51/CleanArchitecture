@@ -1,4 +1,8 @@
-﻿using CleanArchitecture.Abstractions.Managers;
+﻿// <copyright file="DependencyInjection.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+using CleanArchitecture.Abstractions.Managers;
 using CleanArchitecture.Abstractions.Providers;
 using CleanArchitecture.Abstractions.Repositories;
 using CleanArchitecture.Abstractions.Services;
@@ -26,7 +30,6 @@ public static class DependencyInjection
     /// <returns>The updated service collection.</returns>
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
@@ -40,5 +43,4 @@ public static class DependencyInjection
 
         return services;
     }
-
 }

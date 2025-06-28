@@ -1,4 +1,6 @@
-﻿using FluentValidation;
+﻿// <copyright file="SignInRequestValidator.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
 
 namespace CleanArchitecture.Api.Features.SignIn;
 
@@ -6,12 +8,12 @@ public sealed class SignInRequestValidator : AbstractValidator<SignInRequest>
 {
     public SignInRequestValidator()
     {
-        RuleFor(x => x.UserName)
+        this.RuleFor(x => x.UserName)
         .NotNull()
         .NotEmpty()
         .MaximumLength(100);
 
-        RuleFor(x => x.Password)
+        this.RuleFor(x => x.Password)
        .NotNull()
        .NotEmpty()
        .MaximumLength(100);
