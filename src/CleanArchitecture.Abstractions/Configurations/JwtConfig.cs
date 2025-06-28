@@ -1,4 +1,8 @@
-﻿namespace CleanArchitecture.Abstractions.Configurations;
+﻿// <copyright file="JwtConfig.cs" company="Clean Architecture">
+// Copyright (c) Clean Architecture. All rights reserved.
+// </copyright>
+
+namespace CleanArchitecture.Abstractions.Configurations;
 
 /// <summary>
 /// Represents configuration options for JWT authentication.
@@ -6,22 +10,22 @@
 public sealed class JwtConfig
 {
     /// <summary>
-    /// The secret key used to sign the JWT.
+    /// Gets the secret key used to sign the JWT.
     /// </summary>
     public string Key { get; init; } = string.Empty;
 
     /// <summary>
-    /// The issuer of the JWT.
+    /// Gets the issuer of the JWT.
     /// </summary>
     public string Issuer { get; init; } = string.Empty;
 
     /// <summary>
-    /// The audience for the JWT.
+    /// Gets the audience for the JWT.
     /// </summary>
     public string Audience { get; init; } = string.Empty;
 
     /// <summary>
-    /// The lifetime of the token in hours.
+    /// Gets the lifetime of the token in hours.
     /// </summary>
     public int TokenLifetimeInHours { get; init; } = 24;
 }

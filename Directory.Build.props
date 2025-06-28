@@ -1,0 +1,21 @@
+<Project>
+  <PropertyGroup>
+    <!-- Only include analyzers for Debug and non-Release builds -->
+    <EnableAnalyzers Condition="'$(Configuration)' != 'Release'">true</EnableAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EnableAnalyzers)' == 'true'">
+    <!-- Add your analyzer NuGet packages here -->
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" PrivateAssets="all" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="10.12.0.118525" PrivateAssets="all" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556" PrivateAssets="all" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.8.0" PrivateAssets="all" />
+    <PackageReference Include="Meziantou.Analyzer" Version="1.0.726" PrivateAssets="all" />
+    <!-- StyleCop will automatically pick up stylecop.json at the project root -->
+  </ItemGroup>
+
+  <!-- Reference stylecop.json at the repository root, regardless of solution/project folder location -->
+  <ItemGroup>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+</Project>

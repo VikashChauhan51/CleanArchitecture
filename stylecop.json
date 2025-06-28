@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "companyName": "Clean Architecture",
+      "documentExposedElements": true,
+      "documentInternalElements": false
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "outsideNamespace"
+    },
+    "indentation": {
+      "useTabs": false,
+      "indentationSize": 4
+    }
+  }
+}
